@@ -172,6 +172,7 @@
 
         .super-super{
             padding: 10px;
+            width: 100vw;
         }
         .download{
             padding: 20px 5px;
@@ -313,7 +314,7 @@
 
             $(".super-super").css("width", 'max-content');
             
-            let w = $(".super-super").width();
+            let w = $(".super-super").width() + 20;
             let h = $(".super-super").height() + 20;
             window.scrollTo(0,0)
 
@@ -322,7 +323,7 @@
                 width: w,
                 height: h
                 }).then(canvas => {
-                    $(".super-super").css({"width": '100%'});
+                    $(".super-super").css({"width": '100vw'});
                     var a = document.createElement('a');
                     a.href = canvas.toDataURL("image/png");
                     a.download ='Hairspeak Table.png';
