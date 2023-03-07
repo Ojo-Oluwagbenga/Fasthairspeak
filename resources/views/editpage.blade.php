@@ -229,6 +229,7 @@
             console.log(response);
             let headtext = response.data.tabletext[0]['others'];
             $(".hold").text(headtext);
+            $(".head input").val(headtext);
             tabledata = JSON.parse(response.data.tabletext[0]['tabletext']);
             let cell_html = '';
 

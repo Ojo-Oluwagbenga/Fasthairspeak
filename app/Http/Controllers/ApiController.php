@@ -55,27 +55,49 @@ class ApiController extends Controller
     public function save(Request $request){
         $data = $request->all();       
 
+        try {
+            $user = ModelTable::where(["id" => 1])->first();
 
-        $user = ModelTable::where(["id" => 1])->first();
+            $user->tabletext = $data['tabletext'];
+            $user->others = $data['others'];
+            $user->save();
+            
+            $ret = [
+                'status' => '200',
+            ];
+            return json_encode($ret);
+        } catch (\Throwable $th) {
+            $ret = [
+                'status' => '201',
+                'message' => $th->getMessage(),
+                'data' => '',
+            ];
+            return json_encode($ret);
+        }
 
-        $user->tabletext = $data['tabletext'];
-        $user->others = $data['others'];
-        $user->save();
-        
-        $ret = [
-            'status' => '200',
-        ];
-        return json_encode($ret);
+
+       
         
     }
     public function gettext(Request $request){
+        try {
+            $retdata = ModelTable::select("tabletext", "others")->where("id",1)->get();
+            $ret = [
+                'status' => '200',
+                'tabletext'=> $retdata
+            ];
+            return json_encode($ret);
+        } catch (\Throwable $th) {
+            $ret = [
+                'status' => '201',
+                'message' => $th->getMessage(),
+                'data' => '',
+            ];
+            return json_encode($ret);
+        }
+
         
-        $retdata = ModelTable::select("tabletext", "others")->where("id",1)->get();
-        $ret = [
-            'status' => '200',
-            'tabletext'=> $retdata
-        ];
-        return json_encode($ret);
+        
         
     }
     
