@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('waitlists', function (Blueprint $table) {
+        Schema::create('tabledatas', function (Blueprint $table) {
             $table->id();
+            $table->mediumText('tabletext');//url list
+            $table->mediumText('others');//url list
             $table->timestamps();
-            $table->string('name');
-            $table->string('code');
-            $table->string('email')->unique();
-            $table->string('message');
-            $table->string('date')->default('');
-            $table->text('otherdata');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waitlists');
+        Schema::dropIfExists('tabledatas');
     }
 };
