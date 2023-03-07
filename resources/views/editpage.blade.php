@@ -88,6 +88,7 @@
         body, *{
             font-family: 'Raleway', sans-serif;
             font-weight:bold;
+            box-sizing: border-box;
             font-size: 15px;
         }
         input{
@@ -95,6 +96,7 @@
             font-size: 35px;
             outline: none;
             border: none;
+            width: 100%;
         }
         .head.hold{
             font-size:40px;
@@ -169,10 +171,13 @@
             font-size: 1.5rem;
 
         }
+        html{
+            padding: 0px;
+        }
 
         .super-super{
-            padding: 10px;
-            width: 100vw;
+            
+            width: 100;
         }
         .download{
             padding: 20px 5px;
@@ -323,7 +328,7 @@
                 width: w,
                 height: h
                 }).then(canvas => {
-                    $(".super-super").css({"width": '100vw'});
+                    $(".super-super").css({"width": '100%'});
                     var a = document.createElement('a');
                     a.href = canvas.toDataURL("image/png");
                     a.download ='Hairspeak Table.png';
