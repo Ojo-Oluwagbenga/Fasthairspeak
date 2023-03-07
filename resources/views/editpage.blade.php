@@ -170,6 +170,9 @@
 
         }
 
+        .super-super{
+            padding: 10px;
+        }
         .download{
             padding: 20px 5px;
             text-align: center;
