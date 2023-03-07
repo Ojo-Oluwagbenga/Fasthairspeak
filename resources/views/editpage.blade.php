@@ -56,17 +56,21 @@
     
     <div class="page">
         
-        <div class="table-super-hold" style="display:none">
-            <div class="head">
-                <input type="text" value="Double Drawn">
-            </div>
-            <div class="table-super">
-                <div class="table-item">
-                    <input type="text">
+        <div class="super-super">
+            <div class="table-super-hold" style="display:none">
+                
+                <div class="head hold"></div>
+                <div class="table-super">
+                    <div class="table-item">
+                        <input type="text">
+                    </div>
+                    <div class="table-item">Atehe d</div>
                 </div>
-                <div class="table-item">Atehe d</div>
-            </div>
-        </div>        
+            </div>       
+        </div> 
+        <div class="head">
+            <input type="text" value="" placeholder="Enter Head Here">
+        </div>
         
         <div class="download save" id="save">
             Save 
@@ -78,6 +82,9 @@
     </div>
 
     <style>
+        canvas{
+            display:none;
+        }
         body, *{
             font-family: 'Raleway', sans-serif;
             font-weight:bold;
@@ -89,14 +96,21 @@
             outline: none;
             border: none;
         }
+        .head.hold{
+            font-size:40px;
+        }
+
         .head{
             text-align:center;
             font-weight:bold;
             font-size: 20px;
+            height:max-content;
+            padding: 10px;
         }
         .table-super-hold{
             width: 100%;
             overflow-x:scroll;
+            padding-top: 20px;
         }
         .table-super{
             width: max-content;
@@ -213,6 +227,8 @@
             data: {},
         }).then(response => {
             console.log(response);
+            let headtext = response.data.tabletext[0]['others'];
+            $(".hold").text(headtext);
             tabledata = JSON.parse(response.data.tabletext[0]['tabletext']);
             let cell_html = '';
 
@@ -268,7 +284,8 @@
                     "X-CSRF-TOKEN" : '{{csrf_token()}}'
                 },
                 data: {
-                    tabletext:tstring
+                    tabletext:tstring,
+                    others:$(".head input").val()
                 },
             }).then(response => {
                 console.log(response);
@@ -289,20 +306,22 @@
 
         
         function downloadData(){
-            $(".table-super-hold").css("width", 'max-content');
+
+            $(".super-super").css("width", 'max-content');
             
-            let w = $(".table-super-hold").width();
-            let h = $(".table-super-hold").height();
+            let w = $(".super-super").width();
+            let h = $(".super-super").height() + 20;
+            window.scrollTo(0,0)
 
 
-            html2canvas(document.querySelector(".table-super-hold"), {
+            html2canvas(document.querySelector(".super-super"), {
                 width: w,
                 height: h
                 }).then(canvas => {
-                    $(".table-super-hold").css({"width": '100%'});
+                    $(".super-super").css({"width": '100%'});
                     var a = document.createElement('a');
                     a.href = canvas.toDataURL("image/png");
-                    a.download = this.all_name + ' - data.png';
+                    a.download ='Hairspeak Table.png';
                     a.click();
                     document.body.appendChild(canvas)
             });

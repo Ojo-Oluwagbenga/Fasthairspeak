@@ -59,6 +59,7 @@ class ApiController extends Controller
         $user = ModelTable::where(["id" => 1])->first();
 
         $user->tabletext = $data['tabletext'];
+        $user->others = $data['others'];
         $user->save();
         
         $ret = [
@@ -69,7 +70,7 @@ class ApiController extends Controller
     }
     public function gettext(Request $request){
         
-        $retdata = ModelTable::select("tabletext")->where("id",1)->get();
+        $retdata = ModelTable::select("tabletext", "others")->where("id",1)->get();
         $ret = [
             'status' => '200',
             'tabletext'=> $retdata
